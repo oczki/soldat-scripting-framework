@@ -14,43 +14,6 @@ begin
     end;
 end;
 
-// OnRequestGame runs when someone tries to join. You can override the state.
-// After this, the server calls OnPlayerRespawn, then OnJoinGame, then OnJoinTeam.
-function OnRequestGame(ip: string; state: integer): integer;
-begin
-    result := state;
-end;
-
-// OnLeaveGame runs after someone leaves the server.
-// Before this, OnWeaponChange gets called for some reason... Unless they were kicked.
-procedure OnLeaveGame(playerId, teamId: byte; kicked: boolean);
-begin
-    setInactive(playerId);
-end;
-
-// OnJoinGame runs after someone joins the game. Then OnJoinTeam gets called.
-// Bots don't trigger this event!
-procedure OnJoinGame(playerId, teamId: byte);
-begin
-end;
-
-// OnJoinTeam runs after someone joins a team. Also applies to deathmatch (team 0).
-procedure OnJoinTeam(playerId, teamId: byte);
-begin
-    setActive(playerId);
-end;
-
-// OnMapChange runs AFTER the map changes to a new one.
-procedure OnMapChange(newMap: string);
-begin
-end;
-
-// OnGameEnd runs when time runs out, or some player/team hits the score limit.
-// This is NOT ran when the game ends any other way (/restart, /map, etc.).
-procedure OnGameEnd();
-begin
-end;
-
 // OnPlayerSpeak runs any time someone speaks.
 procedure OnPlayerSpeak(callerId: byte; text: string);
 var action: eTriggerAction;
@@ -101,34 +64,14 @@ begin
     end;
 end;
 
-// OnAdminConnect runs after a TCP admin logs in to the server.
-procedure OnAdminConnect(ip: string);
+// OnMapChange runs AFTER the map changes to a new one.
+procedure OnMapChange(newMap: string);
 begin
 end;
 
-// OnAdminDisconnect runs once a TCP admin disconnects.
-procedure OnAdminDisconnect(ip: string);
-begin
-end;
-
-// OnException runs when the server crashes due to an unhandled exception.
-procedure OnException(errorMessage: string);
-begin
-end;
-
-// OnFlagGrab runs just before someone grabs a non-friendly flag.
-procedure OnFlagGrab(playerId, flagTeamId: byte; grabbedInBase: boolean);
-begin
-end;
-
-// OnFlagReturn runs when someone grabs a friendly flag, returning it.
-// Doesn't get called when a flag returns by itself due to timeout!
-procedure OnFlagReturn(playerId, flagTeamId: byte);
-begin
-end;
-
-// OnFlagScore runs after someone touches non-friendly flag with a friendly one near its spawn.
-procedure OnFlagScore(playerId, flagTeamId: byte);
+// OnGameEnd runs when time runs out, or some player/team hits the score limit.
+// This is NOT ran when the game ends any other way (/restart, /map, etc.).
+procedure OnGameEnd();
 begin
 end;
 
@@ -152,5 +95,62 @@ end;
 // Also gets called once upon dying, then again after respawning.
 // Doesn't get called when someone has two identical weapons and switches between them!
 procedure OnWeaponChange(playerId, primaryNum, secondaryNum: byte);
+begin
+end;
+
+// OnFlagGrab runs just before someone grabs a non-friendly flag.
+procedure OnFlagGrab(playerId, flagTeamId: byte; grabbedInBase: boolean);
+begin
+end;
+
+// OnFlagReturn runs when someone grabs a friendly flag, returning it.
+// Doesn't get called when a flag returns by itself due to timeout!
+procedure OnFlagReturn(playerId, flagTeamId: byte);
+begin
+end;
+
+// OnFlagScore runs after someone touches non-friendly flag with a friendly one near its spawn.
+procedure OnFlagScore(playerId, flagTeamId: byte);
+begin
+end;
+
+// OnRequestGame runs when someone tries to join. You can override the state.
+// After this, the server calls OnPlayerRespawn, then OnJoinGame, then OnJoinTeam.
+function OnRequestGame(ip: string; state: integer): integer;
+begin
+    result := state;
+end;
+
+// OnJoinGame runs after someone joins the game. Then OnJoinTeam gets called.
+// Bots don't trigger this event!
+procedure OnJoinGame(playerId, teamId: byte);
+begin
+end;
+
+// OnJoinTeam runs after someone joins a team. Also applies to deathmatch (team 0).
+procedure OnJoinTeam(playerId, teamId: byte);
+begin
+    setActive(playerId);
+end;
+
+// OnLeaveGame runs after someone leaves the server.
+// Before this, OnWeaponChange gets called for some reason... Unless they were kicked.
+procedure OnLeaveGame(playerId, teamId: byte; kicked: boolean);
+begin
+    setInactive(playerId);
+end;
+
+// OnAdminConnect runs after a TCP admin logs in to the server.
+procedure OnAdminConnect(ip: string);
+begin
+end;
+
+// OnAdminDisconnect runs once a TCP admin disconnects.
+procedure OnAdminDisconnect(ip: string);
+begin
+end;
+
+// OnException runs when the server crashes due to an unhandled exception.
+procedure OnException(errorMessage: string);
 begin
 end;
