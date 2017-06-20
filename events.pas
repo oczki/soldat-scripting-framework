@@ -6,7 +6,7 @@ end;
 
 
 
-// ActivateServer runs on startup and after the script gets (re)compiled.
+// ActivateServer runs on startup, and after the script gets (re)compiled.
 procedure ActivateServer();
 var playerId: byte;
 begin
@@ -56,7 +56,7 @@ end;
 
 
 // OnCommand runs when an admin enters a command, e.g. /map.
-// This one is triggered first, then OnPlayerCommand catches the same command if getCommandAction returns cmdNone.
+// After this, OnPlayerCommand catches the same command if getCommandAction returned cmdNone.
 function OnCommand(callerId: byte; text: string): boolean;
 var action: eCommandAction;
 begin
@@ -74,22 +74,23 @@ end;
 
 
 
-// OnMapChange runs AFTER the map changes to a new one.
+// OnMapChange runs after the map changes to a new one, and its name is printed in the console.
 procedure OnMapChange(newMap: string);
 begin
 end;
 
 
 
-// OnGameEnd runs when time runs out, or some player/team hits the score limit.
-// This is NOT ran when the game ends any other way (/restart, /map, etc.).
+// OnGameEnd runs just before OnMapChange, before the map's name is printed.
+// Why does this exist? It makes no sense. Just use OnMapChange.
 procedure OnGameEnd();
 begin
 end;
 
 
 
-// OnPlayerDamage runs when someone deals damage. Also when they're hurting themselves.
+// OnPlayerDamage runs before someone deals damage. Also when they're hurting themselves.
+// You can modify the damage dealt, but direct hits from M79 and M72 LAW will still kill.
 function OnPlayerDamage(victimId, shooterId: byte; damage: integer): integer;
 begin
     result := damage;
@@ -97,21 +98,21 @@ end;
 
 
 
-// OnPlayerKill runs when someone performs a kill. Also when they're doing that to themselves.
+// OnPlayerKill runs after someone performs a kill. Also when they're doing that to themselves.
 procedure OnPlayerKill(killerId, victimId: byte; weapon: string);
 begin
 end;
 
 
 
-// OnPlayerRespawn runs when someone respawns. Note that it also runs when joining a team.
+// OnPlayerRespawn runs after someone respawns. Note that it also runs after joining a team.
 procedure OnPlayerRespawn(playerId: byte);
 begin
 end;
 
 
 
-// OnWeaponChange runs when someone's weapon changes. Runs twice when joining the game.
+// OnWeaponChange runs after someone's weapon changes. Runs twice when joining the game.
 // Also gets called once upon dying, then again after respawning.
 // Doesn't get called when someone has two identical weapons and switches between them!
 procedure OnWeaponChange(playerId, primaryNum, secondaryNum: byte);
