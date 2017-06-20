@@ -20,7 +20,7 @@ begin
     end;
 
     result := cmdNone;
-    text := lowercase(getpiece(text, ' ', 0));
+    text := lowercase(getpiece(inputText, ' ', 0));
     case (text) of
         '/my-cmd', '/alias-for-my-cmd':
             result := cmdSomeCommand;

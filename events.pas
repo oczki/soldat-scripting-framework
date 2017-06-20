@@ -9,8 +9,10 @@ end;
 procedure ActivateServer();
 var playerId: byte;
 begin
-    for playerId := 1 to 32 do
+    for playerId := 1 to 32 do begin
         setActive(playerId);
+        clearLastCommand(playerId);
+    end;
 end;
 
 procedure OnLeaveGame(playerId, teamId: byte; kicked: boolean);
