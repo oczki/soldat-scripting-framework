@@ -23,6 +23,8 @@ begin
     logWrapper(id, text, sevError);
 end;
 
+
+
 function floor(val: double): integer;
 begin
     result := round(val - 0.5);
@@ -33,10 +35,14 @@ begin
     result := round(val + 0.5);
 end;
 
+
+
 function plural(value: integer; text: string): string;
 begin
     result := iif(value = 1, text, text + 's');
 end;
+
+
 
 procedure setActive(playerId: byte);
 begin
@@ -63,12 +69,19 @@ begin
             then inc(result, 1);
 end;
 
+
+
 function usedAdminCommandAlready(callerId: byte): boolean;
 begin
+    if (callerId = 255) then begin
+        result := true;
+        exit;
+    end;
     result := player[callerId].lastCmd <> cmdNone;
 end;
 
 procedure clearLastCommand(callerId: byte);
 begin
+    if (callerId = 255) then exit;
     player[callerId].lastCmd := cmdNone;
 end;

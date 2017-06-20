@@ -11,6 +11,8 @@ begin
     end;
 end;
 
+
+
 function getCommandAction(callerId: byte; inputText: string): eCommandAction;
 var text: string;
 begin
@@ -30,6 +32,8 @@ begin
 
     player[callerId].lastCmd := result;
 end;
+
+
 
 function guessMapName(inputText: string): string;
 var text: string;
