@@ -46,7 +46,7 @@ end;
 
 procedure setActive(playerId: byte);
 begin
-    if (getplayerstat(playerId, 'human') and getplayerstat(playerId, 'active')) then
+    if (getplayerstat(playerId, 'active')) then
         player[playerId].active := true;
 end;
 
@@ -57,6 +57,8 @@ end;
 
 function isActive(playerId: byte): boolean;
 begin
+    result := false;
+    if ((playerId < 1) or (playerId > 32)) then exit;
     result := player[playerId].active;
 end;
 
@@ -84,4 +86,13 @@ procedure clearLastCommand(callerId: byte);
 begin
     if (callerId = 255) then exit;
     player[callerId].lastCmd := cmdNone;
+end;
+
+
+
+function getParams(text: string): string;
+var pos: integer;
+begin
+    pos := length(getpiece(text, ' ', 0)) + 1;
+    result := copy(text, pos + 1, length(text) - pos);
 end;

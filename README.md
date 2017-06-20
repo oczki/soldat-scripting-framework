@@ -9,7 +9,7 @@ Split into:
 * functions - main logic of the script, your special place
 * events - nicely commented with all of script engine's quirks
 
-Gives you a base for your scripts, so that you don't have to define good/bad colors from scratch for the fifteenth time, try to work around handling the same command twice, nor search for that one working implementation of `guessPlayerName`.
+Gives you a base for your scripts, so that you don't have to define good/bad colors from scratch for the fifteenth time, try to work around handling the same command twice, nor search for that one working implementation of `guessPlayerId`.
 
 Events have some comments that explain the order of triggers. You no longer need to remember which event doesn't get triggered by bots (spoiler: it's `OnJoinGame`).
 

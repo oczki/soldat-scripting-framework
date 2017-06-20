@@ -35,6 +35,27 @@ end;
 
 
 
+function guessPlayerId(inputText: string): byte;
+var i: integer;
+    text: string;
+begin
+    result := 0;
+    if (length(inputText) = 0) then exit;
+    try
+        result := strtoint(inputText);
+        if (isActive(result)) then exit;
+    except end;
+    result := 0;
+    text := lowercase(inputText);
+    for i := 1 to 32 do
+        if ((isActive(i)) and (maskcheck(lowercase(idtoname(i)), '*' + text + '*'))) then begin
+            result := i;
+            break;
+        end;
+end;
+
+
+
 function guessMapName(inputText: string): string;
 var text: string;
 begin

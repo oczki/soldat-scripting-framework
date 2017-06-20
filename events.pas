@@ -38,10 +38,12 @@ end;
 // OnPlayerCommand runs when any player enters a command, e.g. /kill.
 function OnPlayerCommand(callerId: byte; text: string): boolean;
 var action: eCommandAction;
+    params: string;
 begin
     result := false;
     action := getCommandAction(callerId, text);
     if (action = cmdNone) then exit;
+    params := getParams(text);
 
     case (action) of
         cmdSomeCommand:
@@ -59,16 +61,19 @@ end;
 // After this, OnPlayerCommand catches the same command if getCommandAction returned cmdNone.
 function OnCommand(callerId: byte; text: string): boolean;
 var action: eCommandAction;
+    params: string;
 begin
     result := false;
     action := getCommandAction(callerId, text);
     if (action = cmdNone) then exit;
+    params := getParams(text);
 
     case (action) of
         cmdSomeCommand:
             doSomething(callerId);
-        cmdSomeOtherCommand:
-            doSomething(callerId);
+        cmdSomeOtherCommand: begin
+            logInfo(callerId, idtoname(guessPlayerId(params)));
+        end;
     end;
 end;
 
